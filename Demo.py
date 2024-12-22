@@ -10,7 +10,8 @@ vertical = st.selectbox('Select an app vertical', datasets, format_func=lambda x
 
 df = pd.read_csv('dummy_data/'+ vertical)
 st.header(vertical.capitalize().replace('.csv', '') +  " dataset example (100k rows):")
-st.write(df.head(100))
+with st.expander("Show data sample", expanded=0):
+    st.write(df.head(100))
 
 st.header("Strategies to explore")
 
