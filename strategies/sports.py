@@ -1,5 +1,6 @@
 import pandas as pd
 import plotly.graph_objects as go
+
 # Match Participation Trends
 def match_participation_trends(data):
     if "match_phase" not in data.columns:
@@ -27,15 +28,14 @@ def match_participation_trends(data):
     recommendation = "Refine pacing or rules at phases with significant drop-offs, such as overtime."
     return fig, explanation, recommendation
 
-
 # In-game Tournaments
 def in_game_tournaments(data):
     tournament_data = data[data['event_type'] == 'progression']
-    tournament_counts = tournament_data.groupby('progression_01').size().reset_index(name='count')
+    tournament_counts = tournament_data.groupby('match_phase').size().reset_index(name='count')
 
     fig = go.Figure()
     fig.add_trace(go.Bar(
-        x=tournament_counts['progression_01'],
+        x=tournament_counts['match_phase'],
         y=tournament_counts['count'],
         text=tournament_counts['count'],
         textposition='auto',
@@ -54,38 +54,33 @@ def in_game_tournaments(data):
 
 # Customization Usage
 def customization_usage(data):
-    if 'customization_id' in data.columns and 'customization_type' in data.columns:
-        customization_data = data[data['event_type'] == 'customization']
-        customization_counts = customization_data.groupby('customization_type').size().reset_index(name='count')
+    customization_data = data[data['event_type'] == 'customization']
+    customization_counts = customization_data.groupby('customization_type').size().reset_index(name='count')
 
-        fig = go.Figure()
-        fig.add_trace(go.Bar(
-            x=customization_counts['customization_type'],
-            y=customization_counts['count'],
-            text=customization_counts['count'],
-            textposition='auto',
-            marker_color='rgb(0, 204, 150)'
-        ))
+    fig = go.Figure()
+    fig.add_trace(go.Bar(
+        x=customization_counts['customization_type'],
+        y=customization_counts['count'],
+        text=customization_counts['count'],
+        textposition='auto',
+        marker_color='rgb(0, 204, 150)'
+    ))
 
-        fig.update_layout(
-            title="Customization Usage",
-            xaxis_title="Customization Type",
-            yaxis_title="Number of Selections",
-            template='plotly_white'
-        )
-        explanation = (
-            "This chart tracks how often players use various customization features, such as avatars, teams, or jerseys. "
-            "Frequent usage indicates strong interest in certain customization types."
-        )
-        recommendation = (
-            "Focus on expanding popular customization options and introducing themed variations to maintain engagement. "
-            "For example, add seasonal or event-specific customization items."
-        )
-        return fig, explanation, recommendation
-    else:
-        raise KeyError("Customization-specific columns ('customization_id', 'customization_type') are missing.")
-
-
+    fig.update_layout(
+        title="Customization Usage",
+        xaxis_title="Customization Type",
+        yaxis_title="Number of Selections",
+        template='plotly_white'
+    )
+    explanation = (
+        "This chart tracks how often players use various customization features, such as avatars, teams, or jerseys. "
+        "Frequent usage indicates strong interest in certain customization types."
+    )
+    recommendation = (
+        "Focus on expanding popular customization options and introducing themed variations to maintain engagement. "
+        "For example, add seasonal or event-specific customization items."
+    )
+    return fig, explanation, recommendation
 
 # Retention Strategy
 def retention_strategy(data):
@@ -94,11 +89,12 @@ def retention_strategy(data):
         lambda x: 'Short' if x < 300 else 'Long' if x > 1200 else 'Medium'
     )
     category_counts = retention_data['category'].value_counts().reset_index()
+    category_counts.columns = ['category', 'count']  # Rename columns for clarity
 
     fig = go.Figure()
     fig.add_trace(go.Pie(
-        labels=category_counts['index'],
-        values=category_counts['category'],
+        labels=category_counts['category'],
+        values=category_counts['count'],
         hole=0.4,
         textinfo='percent+label'
     ))

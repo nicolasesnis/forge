@@ -51,11 +51,11 @@ def resource_scarcity_impact(data):
 
 # Group Play Dynamics
 def group_play_dynamics(data):
-    group_data = data.groupby('session_id').size().reset_index(name='group_activity')
+    session_counts = data.groupby('session_id').size().reset_index(name='group_activity')
 
     fig = go.Figure()
     fig.add_trace(go.Histogram(
-        x=group_data['group_activity'],
+        x=session_counts['group_activity'],
         nbinsx=20,
         marker_color='rgb(255, 127, 80)'
     ))
@@ -93,7 +93,6 @@ def retention_strategy(data):
     explanation = "Introduce team-based rewards or collaborative missions to encourage sustained engagement."
     recommendation = "Develop cooperative missions with compelling rewards to promote teamwork and engagement."
     return fig, explanation, recommendation
-
 
 def vertical_funcs():
     return {

@@ -55,12 +55,12 @@ def session_diversity(data):
     session_data['category'] = session_data['session_length'].apply(
         lambda x: 'Short' if x < 300 else 'Long' if x > 1200 else 'Medium'
     )
-    category_counts = session_data['category'].value_counts().reset_index()
+    category_counts = session_data['category'].value_counts().reset_index(name='count')
 
     fig = go.Figure()
     fig.add_trace(go.Pie(
         labels=category_counts['index'],
-        values=category_counts['category'],
+        values=category_counts['count'],
         hole=0.4,
         textinfo='percent+label'
     ))
@@ -79,12 +79,12 @@ def retention_strategy(data):
     retention_data['category'] = retention_data['session_length'].apply(
         lambda x: 'Short' if x < 300 else 'Long' if x > 1200 else 'Medium'
     )
-    category_counts = retention_data['category'].value_counts().reset_index()
+    category_counts = retention_data['category'].value_counts().reset_index(name='count')
 
     fig = go.Figure()
     fig.add_trace(go.Pie(
         labels=category_counts['index'],
-        values=category_counts['category'],
+        values=category_counts['count'],
         hole=0.4,
         textinfo='percent+label'
     ))

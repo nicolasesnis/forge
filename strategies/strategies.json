@@ -4,19 +4,19 @@
     "Ad Interaction Behavior": "Study which ad placements (e.g., pre_game, post_game) drive higher engagement and fewer drop-offs. For example, ads shown after level completions might be better received since they don't disrupt gameplay. Tailor placements to user preferences for optimal monetization.",
     "Resource Usage": "Identify the most frequently consumed in-game resources, such as gems or coins, to balance rewards and challenges. Highly used resources can be tied to daily rewards or time-limited events to sustain player interest.",
     "Retention Strategy": "Categorize player sessions into short, medium, or long to identify trends in engagement. Short sessions indicate casual play, while long sessions might require breaks to avoid fatigue. Offer tailored incentives for medium-length sessions to encourage regular logins."
-},
-"midcore": {
-  "Progression Bottlenecks": "Analyze levels or stages with high drop-off rates to adjust difficulty or provide in-game tips. For example, if players struggle in 'world_2', introduce tutorials or difficulty adjustments to improve progression rates.",
-  "User Segmentation": "Group users by their session frequency and business transactions to target less active or low-spending players. For instance, send personalized rewards to dormant users or encourage spending with exclusive offers.",
-  "Transaction Trends": "Examine popular consumable purchases to introduce limited-time offers that drive engagement organically. For example, bundle top-selling consumables with discounts to boost sales during events.",
-  "Retention Strategy": "Design time-sensitive in-game events to motivate return play and reduce progression frustration. For example, weekend challenges offering exclusive rewards can enhance engagement and retention."
-},
+  },
+  "midcore": {
+    "Progression Bottlenecks": "Analyze levels or stages with high drop-off rates to adjust difficulty or provide in-game tips. For example, if players struggle in 'world_2', introduce tutorials or difficulty adjustments to improve progression rates.",
+    "User Segmentation": "Group users by their session frequency and business transactions to target less active or low-spending players. For instance, send personalized rewards to dormant users or encourage spending with exclusive offers.",
+    "Transaction Trends": "Examine popular consumable purchases to introduce limited-time offers that drive engagement organically. For example, bundle top-selling consumables with discounts to boost sales during events.",
+    "Retention Strategy": "Design time-sensitive in-game events to motivate return play and reduce progression frustration. For example, weekend challenges offering exclusive rewards can enhance engagement and retention."
+  },
   "hardcore": {
     "Skill vs Progression Analysis": "Assess the correlation between user progression (e.g., levels completed) and scores to identify users struggling to advance. For instance, if early levels have low average scores, refine tutorials or add power-ups to support players. Highlight stages with significant skill gaps to balance gameplay.",
     "Social Dynamics": "Analyze multiplayer or guild participation to identify players not engaged in social features. For example, users with no guild interactions can be encouraged through exclusive rewards or notifications. Track the impact of these efforts by measuring guild activity growth.",
     "Transaction Analysis": "Examine popular purchases to optimize in-game monetization strategies. For instance, if consumables are frequently purchased, offer bundles or discounts to drive further engagement. Monitor purchase trends to align store offerings with user preferences.",
     "Retention Strategy": "Analyze session lengths to identify engagement trends and risks of burnout. For example, long sessions could benefit from soft nudges to take breaks or cooldown mechanics. Highlight community-driven goals, such as leaderboards, to sustain player interest."
-},
+  },
   "hypercasual": {
     "Ad Viewing Drop-offs": "Analyze where users abandon the game after viewing ads and optimize ad frequency. For instance, if users drop off after three consecutive ads, reduce ad frequency or increase rewards. Use A/B testing to identify the optimal balance between monetization and engagement.",
     "Session Length Patterns": "Segment users by short vs long session lengths and tailor content pacing accordingly. For example, offer quick challenges for players with short sessions and extended campaigns for long-session users. Use these insights to personalize notifications and in-game events.",
@@ -28,7 +28,7 @@
     "Resource Balancing": "Analyze which in-game currencies are depleted fastest and offer quests to earn them. For instance, if gold is frequently depleted, introduce events that reward gold for completing specific tasks. Monitor resource trends to maintain a balanced economy.",
     "Progression Pathways": "Study whether linear or open-world progression retains players better. For example, offer guided tutorials in linear pathways and exploration incentives in open-world designs. Track user preferences to optimize progression systems.",
     "Retention Strategy": "Create meaningful side quests with valuable resources or lore to encourage exploration. For instance, introduce hidden quests unlocked by specific achievements. Measure the impact of these additions on retention."
-},
+  },
   "sports": {
     "Match Participation Trends": "Examine drop-off points in match sessions to identify frustrating mechanics or features. For instance, if players often abandon matches during overtime, consider revising the overtime rules. Use session data to refine match pacing and rules.",
     "In-game Tournaments": "Assess participation in events or leagues and correlate with player retention. For instance, introduce tiered tournaments to cater to both casual and competitive players. Track performance metrics to identify popular formats.",
@@ -52,13 +52,13 @@
     "Hint Usage": "Track how often hints are used and create a reward system for solving puzzles without hints. For example, offer bonus points for completing levels without assistance. Monitor hint usage patterns to refine puzzle designs.",
     "Session Gaps": "Study inactive periods and identify players who churn after challenging puzzles. For example, send re-engagement emails or notifications to players who haven't logged in after failing a level. Provide incentives like skip tokens to bring them back.",
     "Retention Strategy": "Implement streak-based rewards to motivate users to solve puzzles daily. For example, introduce a daily puzzle challenge with increasing rewards for consecutive completions. Monitor streak participation rates to optimize the system."
-},
-"shooter": {
-  "Kill-to-Death Ratios": "Study player performance metrics to spot patterns in frustrating mechanics. For example, if players with low K/D ratios quit frequently, consider adding beginner-friendly features or balancing specific weapons and maps. Use performance data to refine tutorials and support mechanisms.",
-  "Weapon Usage Analysis": "Identify frequently used weapons to create new gameplay challenges or weapon upgrades. For instance, if assault rifles dominate usage, introduce skill-based challenges requiring less popular weapons. Monitor weapon trends to maintain gameplay diversity.",
-  "Map Engagement": "Determine which maps or game modes are most engaging and create variations. For example, a frequently played urban map can inspire new layouts or themed events. Track engagement metrics to prioritize high-impact updates.",
-  "Retention Strategy": "Offer periodic weapon unlocks or map expansions based on player preferences. For example, time-limited rewards tied to high-use weapons or popular maps can boost replayability. Use retention data to fine-tune these incentives."
-},
+  },
+  "shooter": {
+    "Kill-to-Death Ratios": "Study player performance metrics to spot patterns in frustrating mechanics. For example, if players with low K/D ratios quit frequently, consider adding beginner-friendly features. Use performance data to identify balance issues in weapons or maps.",
+    "Weapon Usage Analysis": "Identify frequently used weapons to create new gameplay challenges or weapon upgrades. For instance, if a sniper rifle is overused, introduce challenges requiring close-combat weapons. Monitor weapon trends to keep gameplay diverse.",
+    "Map Engagement": "Determine which maps or game modes are most engaging and create variations. For example, if a specific map sees high activity, create a nighttime version or add new objectives. Track engagement metrics to prioritize updates.",
+    "Retention Strategy": "Offer periodic weapon unlocks or map expansions based on player preferences. For example, introduce time-limited weapon upgrades or map-exclusive events. Monitor retention rates to evaluate the success of these updates."
+  },
   "adventure": {
     "Storyline Drop-offs": "Analyze where players lose interest in the narrative and adjust pacing or hooks. This analysis identifies stages with significant player drop-offs, such as those due to confusing plot points or challenging gameplay elements. Refine these areas with better storytelling or simplified mechanics to improve engagement.",
     "Resource Usage": "Identify which in-game resources players consume the most to inform balanced game design and events. For example, if coins or gems are frequently depleted, introduce quests or rewards to replenish them. This ensures players remain motivated and reduces frustration caused by resource scarcity.",
@@ -69,5 +69,5 @@
     "Session Patterns by Age Group": "Analyze how different demographics engage with the content. For example, younger users might prefer interactive games, while older users focus on detailed lessons. Tailor content formats to better suit user preferences.",
     "Topic Popularity": "Study which topics are revisited most to tailor future updates. For instance, history topics with high engagement could be expanded with quizzes or interactive timelines. Use topic popularity metrics to prioritize updates.",
     "Retention Strategy": "Introduce competitive challenges and team-based activities to encourage retention. For example, create leaderboards or team-based problem-solving exercises. Use session length data to measure engagement trends."
-}
+  }
 }

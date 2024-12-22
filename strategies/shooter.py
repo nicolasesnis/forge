@@ -3,9 +3,12 @@ import plotly.graph_objects as go
 
 # Kill-to-Death Ratios
 def kill_to_death_ratios(data):
-    combat_data = data.dropna(subset=['kills', 'deaths'])
-    kd_data = combat_data.groupby('user_id').agg({'kills': 'sum', 'deaths': 'sum'}).reset_index()
-    kd_data['kd_ratio'] = kd_data['kills'] / (kd_data['deaths'] + 1)
+    if 'kills' not in data.columns or 'deaths' not in data.columns:
+        raise KeyError("Columns 'kills' and 'deaths' are missing. Ensure the dataset includes these columns.")
+
+    performance_data = data[data['event_type'] == 'combat']
+    kd_data = performance_data.groupby('user_id').agg({'kills': 'sum', 'deaths': 'sum'}).reset_index()
+    kd_data['kd_ratio'] = kd_data['kills'] / (kd_data['deaths'] + 1)  # Avoid division by zero
 
     fig = go.Figure()
     fig.add_trace(go.Histogram(
@@ -20,14 +23,14 @@ def kill_to_death_ratios(data):
         yaxis_title="Frequency",
         template='plotly_white'
     )
-    explanation = "This chart visualizes the Kill-to-Death (K/D) ratios of players. A low K/D ratio may indicate challenging mechanics or balance issues, especially for newer players."
-    recommendation = "Consider tutorials or balancing adjustments to support players with low K/D ratios and encourage long-term engagement."
+    explanation = "Study player performance metrics to spot patterns in frustrating mechanics."
+    recommendation = "Provide tutorials or balancing adjustments for players with significantly low K/D ratios."
     return fig, explanation, recommendation
 
 # Weapon Usage Analysis
 def weapon_usage_analysis(data):
-    combat_data = data.dropna(subset=['weapon_id'])
-    weapon_counts = combat_data.groupby('weapon_id').size().reset_index(name='count')
+    weapon_data = data[data['event_type'] == 'combat']
+    weapon_counts = weapon_data.groupby('weapon_id').size().reset_index(name='count')
 
     fig = go.Figure()
     fig.add_trace(go.Bar(
@@ -40,18 +43,18 @@ def weapon_usage_analysis(data):
 
     fig.update_layout(
         title="Weapon Usage Analysis",
-        xaxis_title="Weapon",
+        xaxis_title="Weapon ID",
         yaxis_title="Usage Count",
         template='plotly_white'
     )
-    explanation = "This chart shows the frequency of usage for each weapon, identifying popular choices among players."
-    recommendation = "Develop gameplay challenges or upgrades around the most frequently used weapons to sustain engagement."
+    explanation = "Identify frequently used weapons to create new gameplay challenges or weapon upgrades."
+    recommendation = "Introduce upgrades or challenges for the most popular weapons to keep players engaged."
     return fig, explanation, recommendation
 
 # Map Engagement
 def map_engagement(data):
-    progression_data = data.dropna(subset=['map_id'])
-    map_counts = progression_data.groupby('map_id').size().reset_index(name='count')
+    map_data = data[data['event_type'] == 'progression']
+    map_counts = map_data.groupby('map_id').size().reset_index(name='count')
 
     fig = go.Figure()
     fig.add_trace(go.Bar(
@@ -63,13 +66,13 @@ def map_engagement(data):
     ))
 
     fig.update_layout(
-        title="Map Engagement Trends",
-        xaxis_title="Map",
+        title="Map Engagement",
+        xaxis_title="Map ID",
         yaxis_title="Number of Interactions",
         template='plotly_white'
     )
-    explanation = "This chart identifies the most frequently played maps, which can help prioritize updates or new content."
-    recommendation = "Expand or refine popular maps by adding objectives or variations to keep players engaged."
+    explanation = "Determine which maps or game modes are most engaging and create variations."
+    recommendation = "Expand or refine popular maps and game modes to maintain player interest."
     return fig, explanation, recommendation
 
 # Retention Strategy
@@ -79,12 +82,11 @@ def retention_strategy(data):
         lambda x: 'Short' if x < 300 else 'Long' if x > 1200 else 'Medium'
     )
     category_counts = retention_data['category'].value_counts().reset_index()
-    category_counts.columns = ['category', 'count']  # Rename columns explicitly
 
     fig = go.Figure()
     fig.add_trace(go.Pie(
-        labels=category_counts['category'],  # Use the renamed column
-        values=category_counts['count'],  # Use the renamed column
+        labels=category_counts['index'],
+        values=category_counts['category'],
         hole=0.4,
         textinfo='percent+label'
     ))
@@ -93,8 +95,8 @@ def retention_strategy(data):
         title="Retention Strategy Insights",
         template='plotly_white'
     )
-    explanation = "This chart segments session lengths into short, medium, and long categories to analyze player engagement."
-    recommendation = "Offer retention incentives such as timed weapon unlocks or map-exclusive rewards to encourage returning players."
+    explanation = "Offer periodic weapon unlocks or map expansions based on player preferences."
+    recommendation = "Introduce timed challenges and unlocks tied to popular weapons or maps to boost retention."
     return fig, explanation, recommendation
 
 
