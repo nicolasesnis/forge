@@ -29,16 +29,17 @@ def progression_bottlenecks(data):
 
 # User Segmentation
 def user_segmentation(data):
-    segmentation_data = data.groupby('user_id').agg({'session_id': 'count', 'amount': 'sum'}).reset_index()
-    segmentation_data['activity_level'] = segmentation_data['session_id'].apply(
+    segmentation_data = data.groupby('user_id').size().reset_index(name='sessions')
+    segmentation_data['activity_level'] = segmentation_data['sessions'].apply(
         lambda x: 'High' if x > 10 else 'Medium' if x > 5 else 'Low'
     )
     activity_counts = segmentation_data['activity_level'].value_counts().reset_index()
+    activity_counts.columns = ['activity_level', 'count']  # Rename columns for clarity
 
     fig = go.Figure()
     fig.add_trace(go.Pie(
-        labels=activity_counts['index'],
-        values=activity_counts['activity_level'],
+        labels=activity_counts['activity_level'],  # Corrected to use renamed column
+        values=activity_counts['count'],  # Corrected to use renamed column
         hole=0.4,
         textinfo='percent+label'
     ))
@@ -48,10 +49,11 @@ def user_segmentation(data):
         template='plotly_white'
     )
     explanation = (
-        "Group users by their session frequency and spending habits to target less active or non-spending players. "
-        "For example, dormant players with low spending might benefit from exclusive login rewards."
+        "Group users by their session frequency and business transactions to target less active or low-spending players."
     )
-    recommendation = "Offer personalized rewards to low-activity users to re-engage them."
+    recommendation = (
+        "Send personalized rewards to dormant users or encourage spending with exclusive offers."
+    )
     return fig, explanation, recommendation
 
 # Transaction Trends

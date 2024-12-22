@@ -55,12 +55,13 @@ def session_diversity(data):
     session_data['category'] = session_data['session_length'].apply(
         lambda x: 'Short' if x < 300 else 'Long' if x > 1200 else 'Medium'
     )
-    category_counts = session_data['category'].value_counts().reset_index(name='count')
+    category_counts = session_data['category'].value_counts().reset_index()
+    category_counts.columns = ['category', 'count']  # Rename columns for clarity
 
     fig = go.Figure()
     fig.add_trace(go.Pie(
-        labels=category_counts['index'],
-        values=category_counts['count'],
+        labels=category_counts['category'],  # Corrected to use renamed column
+        values=category_counts['count'],  # Corrected to use renamed column
         hole=0.4,
         textinfo='percent+label'
     ))
@@ -69,9 +70,14 @@ def session_diversity(data):
         title="Session Diversity",
         template='plotly_white'
     )
-    explanation = "Look at user behaviors to identify repetitive actions and add variety to gameplay loops."
-    recommendation = "Introduce new gameplay elements or surprises to reduce repetition and enhance engagement."
+    explanation = (
+        "Look at user behaviors to identify repetitive actions and add variety to gameplay loops."
+    )
+    recommendation = (
+        "Introduce new gameplay elements or surprises to reduce repetition and enhance engagement."
+    )
     return fig, explanation, recommendation
+
 
 # Retention Strategy
 def retention_strategy(data):
@@ -79,12 +85,13 @@ def retention_strategy(data):
     retention_data['category'] = retention_data['session_length'].apply(
         lambda x: 'Short' if x < 300 else 'Long' if x > 1200 else 'Medium'
     )
-    category_counts = retention_data['category'].value_counts().reset_index(name='count')
+    category_counts = retention_data['category'].value_counts().reset_index()
+    category_counts.columns = ['category', 'count']  # Rename columns for clarity
 
     fig = go.Figure()
     fig.add_trace(go.Pie(
-        labels=category_counts['index'],
-        values=category_counts['count'],
+        labels=category_counts['category'],  # Corrected to use renamed column
+        values=category_counts['count'],  # Corrected to use renamed column
         hole=0.4,
         textinfo='percent+label'
     ))
@@ -93,9 +100,15 @@ def retention_strategy(data):
         title="Retention Strategy Insights",
         template='plotly_white'
     )
-    explanation = "Add time-limited scenarios or challenges that organically push players to explore different game mechanics."
-    recommendation = "Create dynamic events or seasonal content to maintain player interest and retention."
+    explanation = (
+        "Add time-limited scenarios or challenges that organically push players to explore different game mechanics."
+    )
+    recommendation = (
+        "Introduce seasonal events with unique rewards for trying new features. "
+        "Monitor participation rates to assess the effectiveness of these challenges."
+    )
     return fig, explanation, recommendation
+
 
 
 def vertical_funcs():

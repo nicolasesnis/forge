@@ -3,12 +3,11 @@ import plotly.graph_objects as go
 
 # Kill-to-Death Ratios
 def kill_to_death_ratios(data):
-    if 'kills' not in data.columns or 'deaths' not in data.columns:
-        raise KeyError("Columns 'kills' and 'deaths' are missing. Ensure the dataset includes these columns.")
+    if "kills" not in data.columns or "deaths" not in data.columns:
+        raise KeyError("Columns 'kills' and 'deaths' are missing.")
 
-    performance_data = data[data['event_type'] == 'combat']
-    kd_data = performance_data.groupby('user_id').agg({'kills': 'sum', 'deaths': 'sum'}).reset_index()
-    kd_data['kd_ratio'] = kd_data['kills'] / (kd_data['deaths'] + 1)  # Avoid division by zero
+    kd_data = data.groupby('user_id').agg({'kills': 'sum', 'deaths': 'sum'}).reset_index()
+    kd_data['kd_ratio'] = kd_data['kills'] / (kd_data['deaths'] + 1)
 
     fig = go.Figure()
     fig.add_trace(go.Histogram(
@@ -30,11 +29,11 @@ def kill_to_death_ratios(data):
 # Weapon Usage Analysis
 def weapon_usage_analysis(data):
     weapon_data = data[data['event_type'] == 'combat']
-    weapon_counts = weapon_data.groupby('weapon_id').size().reset_index(name='count')
+    weapon_counts = weapon_data.groupby('customization_id').size().reset_index(name='count')
 
     fig = go.Figure()
     fig.add_trace(go.Bar(
-        x=weapon_counts['weapon_id'],
+        x=weapon_counts['customization_id'],
         y=weapon_counts['count'],
         text=weapon_counts['count'],
         textposition='auto',
@@ -54,11 +53,11 @@ def weapon_usage_analysis(data):
 # Map Engagement
 def map_engagement(data):
     map_data = data[data['event_type'] == 'progression']
-    map_counts = map_data.groupby('map_id').size().reset_index(name='count')
+    map_counts = map_data.groupby('progression_01').size().reset_index(name='count')
 
     fig = go.Figure()
     fig.add_trace(go.Bar(
-        x=map_counts['map_id'],
+        x=map_counts['progression_01'],
         y=map_counts['count'],
         text=map_counts['count'],
         textposition='auto',
@@ -82,11 +81,12 @@ def retention_strategy(data):
         lambda x: 'Short' if x < 300 else 'Long' if x > 1200 else 'Medium'
     )
     category_counts = retention_data['category'].value_counts().reset_index()
+    category_counts.columns = ['category', 'count']
 
     fig = go.Figure()
     fig.add_trace(go.Pie(
-        labels=category_counts['index'],
-        values=category_counts['category'],
+        labels=category_counts['category'],
+        values=category_counts['count'],
         hole=0.4,
         textinfo='percent+label'
     ))

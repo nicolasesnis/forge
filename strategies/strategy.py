@@ -77,11 +77,12 @@ def retention_strategy(data):
         lambda x: 'Short' if x < 300 else 'Long' if x > 1200 else 'Medium'
     )
     category_counts = retention_data['category'].value_counts().reset_index()
+    category_counts.columns = ['category', 'count']  # Rename columns for clarity
 
     fig = go.Figure()
     fig.add_trace(go.Pie(
-        labels=category_counts['index'],
-        values=category_counts['category'],
+        labels=category_counts['category'],  # Corrected to use the new column name
+        values=category_counts['count'],  # Corrected to use the new column name
         hole=0.4,
         textinfo='percent+label'
     ))
@@ -91,8 +92,12 @@ def retention_strategy(data):
         template='plotly_white'
     )
     explanation = "Introduce team-based rewards or collaborative missions to encourage sustained engagement."
-    recommendation = "Develop cooperative missions with compelling rewards to promote teamwork and engagement."
+    recommendation = (
+        "Create weekly missions requiring group participation to unlock rewards. "
+        "Highlight community achievements to foster a sense of belonging."
+    )
     return fig, explanation, recommendation
+
 
 def vertical_funcs():
     return {
