@@ -3,13 +3,21 @@ import json
 import os
 import pandas as pd
 
+
+st.set_page_config(
+    page_title="Forge Demo Analysis",
+    page_icon="🧊",
+    layout="wide"
+)
+
+
 st.title('Forge Demo Datasets')
 datasets = [f for f in os.listdir('dummy_data') if f != '.DS_Store']
 
 vertical = st.selectbox('Select an app vertical', datasets, format_func=lambda x: x.replace('.csv', '').capitalize())
 
 df = pd.read_csv('dummy_data/'+ vertical)
-st.header(vertical.capitalize().replace('.csv', '') +  " dataset example (100k rows):")
+st.header(vertical.capitalize().replace('.csv', '') +  " dataset example (100k rows)")
 with st.expander("Show data sample", expanded=0):
     st.write(df.head(100))
 
